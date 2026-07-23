@@ -79,7 +79,35 @@ USERS {
 
 FAVORITE_ROUTES{
   integer id
-  string route_name
+  integer user_id
+  string name
 }
+
+FAVORITE_ROUTE_NOTIFICATIONS{
+  integer favorite_route_id
+  bool enabled
+  string notification_name
+  integer notification_type
+  time notification_time
+  integer repeat_weekdays_mask
+}
+
+SPOTS{
+  integer id
+  string address
+  decimal latitude
+  decimal longitude
+}
+
+FAVORITE_ROUTE_SPOTS{
+  integer favorite_route_id
+  integer spot_id
+  datetime arrived_at
+  datetime departed_at
+}
+
 USERS ||--o{ FAVORITE_ROUTES : has
+FAVORITE_ROUTES ||--o{ FAVORITE_ROUTE_NOTIFICATIONS : contains
+FAVORITE_ROUTES ||--o{ FAVORITE_ROUTE_SPOTS : contains
+SPOTS ||--o{ FAVORITE_ROUTE_SPOTS : referenced_by
 ```
