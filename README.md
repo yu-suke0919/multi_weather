@@ -42,9 +42,18 @@
 
 ## 画面遷移図
 
-準備中
-
-
+```mermaid
+flowchart LR
+home[ホーム/地図表示画面] --> logged_in{ログイン済み？}
+logged_in --はい--> mypage[マイページ]
+logged_in --いいえ--> login_page[ログイン画面]
+login_page --> mypage
+login_page[ログイン画面] --> signup[登録画面]
+mypage --> favorite_routes[登録ルート一覧]
+favorite_routes --> registration_routes[ルート登録]
+favorite_routes --> registration_notification_route[ルート通知登録]
+mypage --> notifications[通知設定一覧]
+```
 
 ## テスト
 
