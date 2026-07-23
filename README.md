@@ -64,3 +64,22 @@
 - Bootstrap 5.3.8
 - PostgreSQL 18.3
 
+## 設計
+
+### ER図
+
+```mermaid
+erDiagram
+USERS {
+  integer id
+  string name
+  string email
+  string encrypted_password
+}
+
+FAVORITE_ROUTES{
+  integer id
+  string route_name
+}
+USERS ||--o{ FAVORITE_ROUTES : has
+```
