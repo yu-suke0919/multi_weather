@@ -77,46 +77,59 @@ mypage --> notifications[通知設定一覧]
 
 ### ER図
 
+#### ユーザーデータ
+
 ```mermaid
 erDiagram
-USERS {
+  USERS {
   integer id
   string name
   string email
   string encrypted_password
-}
+  }
 
-FAVORITE_ROUTES{
-  integer id
-  integer user_id
-  string name
-}
+  FAVORITE_ROUTES{
+    integer id
+    integer user_id
+    string name
+  }
 
-FAVORITE_ROUTE_NOTIFICATIONS{
-  integer favorite_route_id
-  bool enabled
-  string notification_name
-  integer notification_type
-  time notification_time
-  integer repeat_weekdays_mask
-}
+  FAVORITE_ROUTE_NOTIFICATIONS{
+    integer favorite_route_id
+    bool enabled
+    string notification_name
+    integer notification_type
+    time notification_time
+    integer repeat_weekdays_mask
+  }
 
-SPOTS{
-  integer id
-  string address
-  decimal latitude
-  decimal longitude
-}
+  SPOTS{
+    integer id
+    string address
+    decimal latitude
+    decimal longitude
+  }
 
-FAVORITE_ROUTE_SPOTS{
-  integer favorite_route_id
-  integer spot_id
-  datetime arrived_at
-  datetime departed_at
-}
+  FAVORITE_ROUTE_SPOTS{
+    integer favorite_route_id
+    integer spot_id
+    datetime arrived_at
+    datetime departed_at
+  }
+  HOURLY_FORECAST_CACHES{
+    decimal latitude
+    decimal longitude
+    datetime updated_at
+    integer temperature[]
+    integer precipitation_probability[]
+  }
 
-USERS ||--o{ FAVORITE_ROUTES : has
-FAVORITE_ROUTES ||--o{ FAVORITE_ROUTE_NOTIFICATIONS : contains
-FAVORITE_ROUTES ||--o{ FAVORITE_ROUTE_SPOTS : contains
-SPOTS ||--o{ FAVORITE_ROUTE_SPOTS : referenced_by
+  USERS ||--o{ FAVORITE_ROUTES : has
+  FAVORITE_ROUTES ||--o{ FAVORITE_ROUTE_NOTIFICATIONS : contains
+  FAVORITE_ROUTES ||--o{ FAVORITE_ROUTE_SPOTS : contains
+  SPOTS ||--o{ FAVORITE_ROUTE_SPOTS : referenced_by
+  SPOTS ||--o| HOURLY_FORECAST_CACHES :has_one
+
 ```
+
+}
